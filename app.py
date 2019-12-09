@@ -32,4 +32,4 @@ def index():
             "developer_organization": "PMF"}
     return template('index', data = data)
 
-run(app, host='localhost', port = 4040)
+run(app, host='localhost', port = 4040,debug='True',reloader='True')
