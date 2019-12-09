@@ -40,8 +40,15 @@
     </nav>
 
     <div class="container">
-      <h3 class="tasks">Tasks</h3>
-      <button class="addTask" onClick="parent.location='/new'">Add a task</button>
+      <h3>Create new task</h3>
+      
+	  <form action="/new">
+		<label>Task</label>
+		<input type="text" size="100" name="task"><br>
+		<label>Description</label>
+		<textarea name="desc" rows="10" cols="30"></textarea>
+		<input type="submit" value="Save" name="save"><br>
+		<input type="button" value="Cancel" onClick="parent.location='/'">
     </div>
   </body>
 </html>

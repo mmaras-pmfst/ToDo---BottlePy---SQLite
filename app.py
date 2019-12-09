@@ -24,7 +24,9 @@ def send_js(filename):
 def send_jsmap(filename):
     return static_file(filename, root=dirname+'/static/assets/js')
 
-
+@app.route('/new')
+def new_task():
+    return template('newtask')
 
 @app.route('/')
 def index():
