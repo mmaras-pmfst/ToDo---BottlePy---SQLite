@@ -43,7 +43,7 @@
         </g>
       </svg>
     </button>
-    <button class="addBtn">
+    <button class="addBtn" onClick="parent.location='/new'">
       <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         x="0px" y="0px" viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
         <g>
@@ -100,8 +100,9 @@
   <div class="listsContainer">
     <!-- Uncompleted tasks -->
     <ul class="todo">
+	 %for row in rows:
       <li>
-        HeyHey
+        <a href="item{{row[0]}}">{{row[1]}}</a>
         <div class="buttons">
           <button class="remove">
             <svg width="20px" height="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -156,6 +157,7 @@
           </button>
         </div>
       </li>
+	 %end
     </ul>
 
     <!-- Completed tasks -->

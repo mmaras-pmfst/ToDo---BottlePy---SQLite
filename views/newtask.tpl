@@ -19,7 +19,7 @@
 
 <body>
   <div class="header">
-    <button class="back">
+    <button class="back" onClick="parent.location='/'">
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
         <g>
@@ -38,26 +38,48 @@
       </svg>
     </button>
   </div>
+  <div>
+  <form action="/new" method="POST">
+        
+        
+		<div class="titleDiv"> 
+			<input class="title" type="text" name="task" placeholder="Title.."> 
+		</div>
+        <div class="descDiv">
+			<textarea name="desc" class="desc" cols="" rows="" placeholder="Description.."></textarea>
+		</div>
+		
+			<button onClick="parent.location='/'" class="saveBtn">
+				<input type="submit" value="Save" name="save" /><br />
+				
+			</button>
+			
+        
 
-  <div class="titleDiv">
-    <input class="title" type="text" placeholder="Title..">
-  </div>
+        
+      </form>
+  
+	<!-- <form action="/new" method="POST"> -->
+		
 
-  <div class="descDiv">
-    <textarea name="" class="desc" cols="" rows="" placeholder="Description.."></textarea>
-  </div>
+		
 
-  <div class="saveDiv">
-    <button class="saveBtn">
-      <svg width="45px" height="45px" id="Capa_1" enable-background="new 0 0 482.239 482.239"
-        viewBox="0 0 482.239 482.239" width="512" xmlns="http://www.w3.org/2000/svg">
-        <path class="save"
-          d="m465.016 0h-447.793c-9.52 0-17.223 7.703-17.223 17.223v447.793c0 9.52 7.703 17.223 17.223 17.223h447.793c9.52 0 17.223-7.703 17.223-17.223v-447.793c0-9.52-7.703-17.223-17.223-17.223zm-17.223 447.793h-413.347v-413.347h413.348v413.347z" />
-        <path class="save"
-          d="m373.856 184.405-24.354-24.354-142.828 142.828-73.937-73.937-24.354 24.354 98.291 98.291z" />
-      </svg>
-    </button>
-  </div>
+		<!-- <div class="saveDiv"> -->
+	
+			<!-- <button type="submit" name="save" class="saveBtn" onClick="parent.location='/'"> -->
+		
+			<!-- <svg width="45px" height="45px" id="Capa_1" enable-background="new 0 0 482.239 482.239" -->
+			<!-- viewBox="0 0 482.239 482.239" width="512" xmlns="http://www.w3.org/2000/svg"> -->
+			<!-- <path class="save" -->
+			<!-- d="m465.016 0h-447.793c-9.52 0-17.223 7.703-17.223 17.223v447.793c0 9.52 7.703 17.223 17.223 17.223h447.793c9.52 0 17.223-7.703 17.223-17.223v-447.793c0-9.52-7.703-17.223-17.223-17.223zm-17.223 447.793h-413.347v-413.347h413.348v413.347z" /> -->
+			<!-- <path class="save" -->
+			<!-- d="m373.856 184.405-24.354-24.354-142.828 142.828-73.937-73.937-24.354 24.354 98.291 98.291z" /> -->
+			<!-- </svg> -->
+			<!-- </button> -->
+	
+		<!-- </div> -->
+	<!-- </form> -->
+   </div>
 
 </body>
 
