@@ -4,118 +4,268 @@
   box-sizing: border-box;
 }
 
-/* Navigation */
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+/* Global */
+body {
+  min-height: 100%;
+  font-family: "Poppins", sans-serif;
+  background: #101d21;
+  padding: 0 0 80px 0;
+}
+
+/* Add a task section */
+.addTask {
+  width: 100%;
   min-height: 8vh;
-  background-color: #5d4954;
-  font-family: 'Poppins', sans-serif;
-}
-
-.logo {
-  color: rgb(226, 226, 226);
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  font-size: 20px;
-}
-
-.nav-links {
+  position: fixed;
+  padding: 15px;
+  bottom: 0;
+  left: 0;
   display: flex;
   justify-content: space-around;
-  width: 30%;
+  background: #dade42;
+  box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
 }
 
-.nav-links li {
-  list-style: none;
+.addTask button {
+  width: 50px;
+  height: 50px;
+  bottom: 15px;
+  border-radius: 25px;
+  background: #020811;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  flex: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
 }
 
-.nav-links a {
-  color: rgb(226, 226, 226);
+.addTask button svg {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  margin: -8px 0 0 -8px;
+  fill: #fff;
+}
+
+/* Lists */
+.listsContainer {
+  width: 100%;
+  float: left;
+  padding: 15px;
+}
+
+/* Todo List */
+.todo {
+  width: 100%;
+  float: left;
+}
+
+.todo li {
   text-decoration: none;
+  list-style: none;
+  width: 100%;
+  min-height: 50px;
+  float: left;
+  font-size: 16px;
+  font-weight: 500;
+  color: #696969;
+  line-height: 22px;
+  background: #dade42;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px, 1px, 2px rgba(44, 62, 80, 0.1);
+  margin-bottom: 10px;
+  padding: 14px 100px 14px 14px;
+}
+
+li:last-of-type {
+  margin: 0;
+}
+
+/* Remove, complete and edit (buttons)*/
+.todo li .buttons {
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.buttons button {
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: none;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  position: relative;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.buttons .remove:hover {
+  fill: red;
+}
+
+.buttons .complete:hover {
+  fill: darkgreen;
+}
+
+.buttons .edit:hover {
+  fill: white;
+}
+
+/* Dividing buttons */
+.buttons button:last-of-type:before {
+  content: "";
+  width: 1px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  background: #101d21;
+}
+
+.buttons button:nth-of-type(2):before {
+  content: "";
+  width: 1px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  background: #101d21;
+}
+
+/* NewTask page */
+
+/* Header */
+.header {
+  min-width: 100%;
+  background-color: #dade42;
+  min-height: 8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header button {
+  width: 35px;
+  height: 35px;
+  top: 50%;
+  margin-left: 10px;
+  border-radius: 25px;
+  background: #020811;
+
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  position: relative;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.header svg {
+  fill: #fff;
+}
+
+/* Inputs */
+.titleDiv {
+  width: 100%;
+}
+
+.title {
+  min-width: 100%;
+  height: 54px;
+  font-size: 24px;
   font-weight: bold;
+  color: #696969;
+  margin-left: 10px;
+
+  background: none;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  position: relative;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.descDiv {
+  width: 100%;
+  min-height: 100%;
+}
+
+.desc {
+  min-width: 100%;
   font-size: 14px;
+  color: #696969;
+  font-family: "Poppins", sans-serif;
+  margin-left: 10px;
+
+  background: none;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  position: relative;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
 }
 
-/* Burger */
-.burger {
-  display: none;
-  cursor: pointer;
+.saveDiv {
+  min-width: 100%;
+  background-color: #dade42;
+  position: absolute;
+  bottom: 0;
+  min-height: 8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
 }
 
-.burger div {
-  width: 25px;
-  height: 3px;
-  background-color: rgb(226, 226, 226);
-  margin: 5px;
-  transition: 0.3s ease-in-out;
+.saveDiv svg {
+  fill: #fff;
 }
 
+.saveDiv button {
+  width: 45px;
+  height: 45px;
+  margin-left: 10px;
+  background: #020811;
 
-/* Media */
-@media screen and (max-width: 1024px) {
-  .nav-links {
-    width: 50%;
-  }
+  border: none;
+  box-shadow: none;
+  outline: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
 }
 
-@media screen and (max-width: 768px) {
-  body {
-    overflow-x: hidden;
-  }
-
-  .nav-links {
-    position: absolute;
-    right: 0px;
-    height: 8vh;
-    height: 90vh;
-    top: 8vh;
-    background-color: #5d4954;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in;
-  }
-
-  .nav-links li {
-    opacity: 0;
-  }
-
-  .burger {
-    display: block;
-  }
-}
-
-/* StyleForJS */
-.nav-active {
-  transform: translateX(0%);
-}
-
-/* Keyframes */
-@keyframes navLinkFade {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-
-/* Burger Lines */
-.toggle .line1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.toggle .line2 {
-  opacity: 0;
-}
-
-.toggle .line3 {
-  transform: rotate(45deg) translate(-5px, -6px);
+.saveBtn svg:hover {
+  fill: darkgreen;
 }
