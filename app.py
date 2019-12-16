@@ -42,7 +42,7 @@ def new_task():
     else:    
         return template('newtask')
 
-@app.route('/')
+@app.route('/tasks')
 def index():
     #CONNECT DATABASE
     con=sqlite3.connect('data/todo.dat') #Novo
@@ -51,5 +51,9 @@ def index():
     data = {"developer_name": "PMF student",
             "developer_organization": "PMF"}
     return template('index', data = data,rows=rows)
+
+@app.route('/')
+def title():    
+    return template('titlePage')
 
 run(app, host='localhost', port = 4040,debug='True',reloader='True')
