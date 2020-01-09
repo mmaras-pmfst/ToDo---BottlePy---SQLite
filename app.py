@@ -34,7 +34,7 @@ def send_jsmap(filename):
 def delete_task(delete):
     deleteitem=delete
     
-    cur.execute('DELETE FROM todo WHERE id = (?)',deleteitem)
+    cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
     con.commit()
     rows=cur.execute('SELECT * FROM todo ORDER BY datetime ASC')
     redirect('/tasks')
