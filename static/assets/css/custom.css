@@ -25,13 +25,12 @@ button {
   cursor: pointer;
 }
 
-.sava{
-	display: none;
-}
+/* Index */
+
 /* Add a task section */
 .addTask {
   width: 100%;
-  min-height: 8vh;
+  max-height: 11vh;
   position: fixed;
   padding: 15px;
   bottom: 0;
@@ -43,11 +42,13 @@ button {
 }
 
 .addTask button {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   bottom: 15px;
   border-radius: 25px;
   background: #020811;
+  transition: 0.3s all ease-in-out;
+
   border: 0px;
   box-shadow: none;
   outline: none;
@@ -58,6 +59,14 @@ button {
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
+}
+
+.addTask button:hover {
+  transform: scale(1.1);
+}
+
+.addTask button:active {
+  transform: scale(-1.1);
 }
 
 .addTask button svg {
@@ -121,6 +130,8 @@ li:last-of-type {
   box-shadow: none;
   outline: none;
   position: relative;
+  display: flex;
+  justify-content: center;
 
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -164,8 +175,6 @@ li:last-of-type {
 
 /* NewTask page */
 
-
-
 /* Header */
 .headerTask {
   min-width: 100%;
@@ -183,6 +192,7 @@ li:last-of-type {
   margin-left: 10px;
   border-radius: 25px;
   background: #020811;
+  transition: 0.3s all ease-in-out;
 
   border: 0px;
   box-shadow: none;
@@ -194,6 +204,10 @@ li:last-of-type {
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
+}
+
+.headerTask button:hover {
+  transform: scale(1.1);
 }
 
 .headerTask svg {
@@ -263,31 +277,29 @@ li:last-of-type {
   text-align: right;
 }
 
-.saveDiv svg {
+/* .saveDiv svg {
   fill: #fff;
 }
 
-.saveDiv button {
-  width: 45px;
-  height: 45px;
-  margin-left: 10px;
-  background: #020811;
-
-  border: none;
-  box-shadow: none;
-  outline: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-}
 .saveBtn svg:hover {
   fill: darkgreen;
+} */
+
+input[type="submit"] {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background: #020811;
+  color: #fff;
+  transition: 0.3s all ease-in-out;
+
+  border: 1px solid white;
 }
-.saveBtn{
-  position:bottom 0px;
+
+input[type="submit"]:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 /* titlePage */
@@ -332,6 +344,10 @@ li:last-of-type {
   text-decoration: underline;
 }
 
+.mainText a:hover {
+  color: #fff;
+}
+
 .welcome {
   font-size: 40px;
   font-weight: bold;
@@ -367,7 +383,7 @@ li:last-of-type {
 }
 
 .donateBtn:before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background: rgba(255, 255, 255, 0.5);
@@ -381,7 +397,7 @@ li:last-of-type {
 }
 
 .donateBtn:after {
-  content: '';
+  content: "";
   display: block;
   background: rgba(255, 255, 255, 0.2);
   width: 30px;
@@ -424,4 +440,142 @@ li:last-of-type {
 
 .text {
   margin-left: 5px;
+}
+
+/* Sign In */
+.loginBox {
+  width: 320px;
+  height: 420px;
+  background: #dade42;
+  color: #696969;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 70px 30px;
+  border-radius: 5px;
+  box-shadow: -5px 5px 10px;
+}
+
+.avatar {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: -50px;
+  left: calc(50% - 50px);
+}
+
+.loginBox p {
+  font-weight: bold;
+}
+
+.loginBox input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.loginBox input[type="text"],
+input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #020811;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #696969;
+  font-size: 14px;
+}
+
+.loginBox input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #020811;
+  font-size: 18px;
+  color: #696969;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.loginBox input[type="submit"]:hover {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.loginBox a:hover {
+  color: #fff;
+}
+
+.loginBox .links {
+  bottom: 0;
+}
+
+/* Sign Up */
+.registerBox {
+  width: 320px;
+  height: 420px;
+  background: #dade42;
+  color: #696969;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 70px 30px;
+  border-radius: 5px;
+  box-shadow: -5px 5px 10px;
+}
+
+.registerBox input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.registerBox input[type="text"],
+input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #020811;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #696969;
+  font-size: 14px;
+}
+
+.registerBox input[type="email"] {
+  border: none;
+  border-bottom: 1px solid #020811;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #696969;
+  font-size: 14px;
+}
+
+.registerBox input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #020811;
+  font-size: 18px;
+  color: #696969;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.registerBox input[type="submit"]:hover {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.registerBox a:hover {
+  color: #fff;
+}
+
+/* Lost Password */
+.poop {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
 }
