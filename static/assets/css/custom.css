@@ -12,10 +12,25 @@ body {
   padding: 0 0 80px 0;
 }
 
+a {
+  text-decoration: none;
+  color: #696969;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Index */
+
 /* Add a task section */
 .addTask {
   width: 100%;
-  min-height: 8vh;
+  max-height: 11vh;
   position: fixed;
   padding: 15px;
   bottom: 0;
@@ -27,11 +42,13 @@ body {
 }
 
 .addTask button {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   bottom: 15px;
   border-radius: 25px;
   background: #020811;
+  transition: 0.3s all ease-in-out;
+
   border: 0px;
   box-shadow: none;
   outline: none;
@@ -42,6 +59,14 @@ body {
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
+}
+
+.addTask button:hover {
+  transform: scale(1.1);
+}
+
+.addTask button:active {
+  transform: scale(-1.1);
 }
 
 .addTask button svg {
@@ -105,6 +130,8 @@ li:last-of-type {
   box-shadow: none;
   outline: none;
   position: relative;
+  display: flex;
+  justify-content: center;
 
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -149,7 +176,7 @@ li:last-of-type {
 /* NewTask page */
 
 /* Header */
-.header {
+.headerTask {
   min-width: 100%;
   background-color: #dade42;
   min-height: 8vh;
@@ -158,13 +185,14 @@ li:last-of-type {
   justify-content: center;
 }
 
-.header button {
+.headerTask button {
   width: 35px;
   height: 35px;
   top: 50%;
   margin-left: 10px;
   border-radius: 25px;
   background: #020811;
+  transition: 0.3s all ease-in-out;
 
   border: 0px;
   box-shadow: none;
@@ -178,7 +206,11 @@ li:last-of-type {
   appearance: none;
 }
 
-.header svg {
+.headerTask button:hover {
+  transform: scale(1.1);
+}
+
+.headerTask svg {
   fill: #fff;
 }
 
@@ -245,27 +277,305 @@ li:last-of-type {
   text-align: right;
 }
 
-.saveDiv svg {
+/* .saveDiv svg {
   fill: #fff;
-}
-
-.saveDiv button {
-  width: 45px;
-  height: 45px;
-  margin-left: 10px;
-  background: #020811;
-
-  border: none;
-  box-shadow: none;
-  outline: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
 }
 
 .saveBtn svg:hover {
   fill: darkgreen;
+} */
+
+input[type="submit"] {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background: #020811;
+  color: #fff;
+  transition: 0.3s all ease-in-out;
+
+  border: 1px solid white;
+}
+
+input[type="submit"]:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* titlePage */
+
+/* Header */
+.headerTitle {
+  min-width: 100%;
+  background-color: #dade42;
+  min-height: 8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  margin-left: 5px;
+  font-size: 30px;
+}
+
+/* Content */
+.main {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.mainText {
+  color: #696969;
+  width: 50%;
+  padding: 20px;
+  font-size: 24px;
+}
+
+.mainText a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.mainText a:hover {
+  color: #fff;
+}
+
+.welcome {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.logo {
+  padding: 10px;
+}
+
+.logo p {
+  font: 24px;
+  color: #696969;
+  padding-bottom: 5px;
+}
+
+/* Flashy button */
+.donateBtn {
+  background: none;
+  width: 150px;
+  height: 50px;
+  border: 1px solid #dade42;
+  font-size: 18px;
+  border-radius: 4px;
+  transition: 0.6s;
+  overflow: hidden;
+  color: #696969;
+  text-transform: uppercase;
+  padding-top: 14px;
+}
+
+.donateBtn:focus {
+  outline: none;
+}
+
+.donateBtn:before {
+  content: "";
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.5;
+  filter: blur(30px);
+  transform: translateX(-130px) skewX(-15deg);
+}
+
+.donateBtn:after {
+  content: "";
+  display: block;
+  background: rgba(255, 255, 255, 0.2);
+  width: 30px;
+  height: 100%;
+  left: 30px;
+  top: 0;
+  opacity: 0;
+  filter: blur(30px);
+  transform: translate(-100px) scaleX(-15deg);
+}
+
+.donateBtn:hover {
+  background: #696969;
+  color: #fff;
+}
+
+.donateBtn:hover:before {
+  transform: translateX(300px) skewX(-15deg);
+  opacity: 0.6;
+  transition: 0.7s;
+}
+
+.donateBtn:hover:after {
+  transform: translateX(300px) skewX(-15deg);
+  opacity: 1;
+  transition: 0.7s;
+}
+
+/* Footer */
+.footerTitle {
+  min-width: 100%;
+  background-color: #dade42;
+  position: fixed;
+  bottom: 0;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text {
+  margin-left: 5px;
+}
+
+/* Sign In */
+.loginBox {
+  width: 320px;
+  height: 420px;
+  background: #dade42;
+  color: #696969;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 70px 30px;
+  border-radius: 5px;
+  box-shadow: -5px 5px 10px;
+}
+
+.avatar {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: -50px;
+  left: calc(50% - 50px);
+}
+
+.loginBox p {
+  font-weight: bold;
+}
+
+.loginBox input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.loginBox input[type="text"],
+input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #020811;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #696969;
+  font-size: 14px;
+}
+
+.loginBox input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #020811;
+  font-size: 18px;
+  color: #696969;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.loginBox input[type="submit"]:hover {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.loginBox a:hover {
+  color: #fff;
+}
+
+.loginBox .links {
+  bottom: 0;
+}
+
+/* Sign Up */
+.registerBox {
+  width: 320px;
+  height: 420px;
+  background: #dade42;
+  color: #696969;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 70px 30px;
+  border-radius: 5px;
+  box-shadow: -5px 5px 10px;
+}
+
+.registerBox input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.registerBox input[type="text"],
+input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #020811;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #696969;
+  font-size: 14px;
+}
+
+.registerBox input[type="email"] {
+  border: none;
+  border-bottom: 1px solid #020811;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #696969;
+  font-size: 14px;
+}
+
+.registerBox input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #020811;
+  font-size: 18px;
+  color: #696969;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.registerBox input[type="submit"]:hover {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.registerBox a:hover {
+  color: #fff;
+}
+
+/* Lost Password */
+.poop {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
 }
