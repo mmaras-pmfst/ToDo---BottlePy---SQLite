@@ -79,4 +79,4 @@ def signIn():
 def title():    
     return template('titlePage')
 
-run(app, host='localhost', port = 4040,debug='True',reloader='True')
+run(app, host='localhost', port = 1234,debug='True',reloader='True')
