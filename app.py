@@ -30,6 +30,55 @@ def send_js(filename):
 def send_jsmap(filename):
     return static_file(filename, root=dirname+'/static/assets/js')
 
+@app.route('/signUp',method=['GET','POST'])
+def signUp():
+    if request.POST.get('register','').strip():
+        username=request.POST.get('username')
+        email=request.POST.get('email')
+        password1=request.POST.get('password1')
+        password2=request.POST.get('password2')
+        cur.execute('SELECT username FROM user WHERE username= ?',(username,))
+        test=cur.fetchone()
+        print(test)
+        if test==None:
+            if password1==password2:
+                #CONNECT DATABASE
+                cur.execute('INSERT INTO user VALUES (null,?,?,?)',(username,password1,email))
+                con.commit()
+                redirect('/tasks')
+            else:
+                print("Wrong password")
+                return template('signUp')
+        else:
+            print("Username already exists!")
+            return template('signUp')
+            
+    else:
+        return template('signUp')
+
+@app.route('/lostPassword')
+def lostPassword():
+    
+    return template('lostPassword')
+
+@app.route('/signIn',method=['GET','POST'])
+def signIn():
+    if request.POST.get('login','').strip():
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        cur.execute('SELECT id FROM user WHERE username = (?)',(username,))
+        id1=cur.fetchone()
+        cur.execute('SELECT id FROM user WHERE password = (?)',(password,))
+        id2=cur.fetchone()
+        print(id1)
+        print(id2)
+
+        if id1==id2:
+            redirect('/tasks')
+        else:
+            return template('signIn')       
+    else:
+        return template('signIn')
 @app.route('/delete<delete:re:[0-9]+>')
 def delete_task(delete):
     deleteitem=delete
@@ -63,21 +112,12 @@ def index():
     #CONNECT DATABASE
     
     rows=cur.execute('SELECT * FROM todo ORDER BY datetime ASC') #Novo
+    print(rows)
     data = {"developer_name": "PMF student",
             "developer_organization": "PMF"}
     return template('index', data = data,rows=rows)
 
-@app.route('/signUp')
-def signUp():
-    return template('signUp')
 
-@app.route('/lostPassword')
-def lostPassword():
-    return template('lostPassword')
-
-@app.route('/signIn')
-def signIn():
-    return template('signIn')
 
 @app.route('/')
 def title():    
