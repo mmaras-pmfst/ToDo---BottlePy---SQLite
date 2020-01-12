@@ -4,11 +4,14 @@ from bottle import Bottle, redirect, run, \
 import os, sys, sqlite3, datetime
 
 dirname = os.path.dirname(sys.argv[0])
+
+#CONNECT DATABASE
 con=sqlite3.connect('data\\todo.db')
 cur=con.cursor()
 
 app = Bottle()
 debug(True)
+
 
 @app.route('/static/<filename:re:.*\.png>')
 def send_png(filename):
@@ -29,6 +32,7 @@ def send_js(filename):
 @app.route('/static/<filename:re:.*\.js.map>')
 def send_jsmap(filename):
     return static_file(filename, root=dirname+'/static/assets/js')
+    
 
 @app.route('/signUp',method=['GET','POST'])
 def signUp():
@@ -42,9 +46,15 @@ def signUp():
         print(test)
         if test==None:
             if password1==password2:
-                #CONNECT DATABASE
+                #DATABASE QUERY
                 cur.execute('INSERT INTO user VALUES (null,?,?,?)',(username,password1,email))
                 con.commit()
+                cur.execute('SELECT * FROM user WHERE username = (?)',(username,))
+                id_user=cur.fetchone()[0]
+                print("User id is:")
+                print(id_user)
+                global save_id
+                save_id=id_user
                 redirect('/tasks')
             else:
                 print("Wrong password")
@@ -52,13 +62,11 @@ def signUp():
         else:
             print("Username already exists!")
             return template('signUp')
-            
     else:
         return template('signUp')
 
 @app.route('/lostPassword')
-def lostPassword():
-    
+def lostPassword():    
     return template('lostPassword')
 
 @app.route('/signIn',method=['GET','POST'])
@@ -66,53 +74,51 @@ def signIn():
     if request.POST.get('login','').strip():
         username=request.POST.get('username')
         password=request.POST.get('password')
-        cur.execute('SELECT id FROM user WHERE username = (?)',(username,))
+        id1=cur.execute('SELECT * FROM user WHERE username = (?) AND password = (?)',(username,password,))
         id1=cur.fetchone()
-        cur.execute('SELECT id FROM user WHERE password = (?)',(password,))
-        id2=cur.fetchone()
-        print(id1)
-        print(id2)
-
-        if id1==id2:
+        print("Does user exists:")
+        print(id1)        
+        if id1!=None:
+            global save_id
+            save_id=id1[0]
+            print("Sign in id: "+str(save_id))
             redirect('/tasks')
         else:
-            return template('signIn')       
+            return template('signIn')      
     else:
         return template('signIn')
+    
 @app.route('/delete<delete:re:[0-9]+>')
 def delete_task(delete):
-    deleteitem=delete
-    
+    deleteitem=delete    
     cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
     con.commit()
-    rows=cur.execute('SELECT * FROM todo ORDER BY datetime ASC')
     redirect('/tasks')
 
-@app.route('/new',method=['GET','POST']) #Novo dodano 
+@app.route('/new',method=['GET','POST'])  
 def new_task():
     if request.POST.get('save','').strip():
         todotitle=request.POST.get('task')
         tododesc=request.POST.get('desc')
         tododatetime=datetime.datetime.now()
-        id_user='1'
+        global save_id
         complete='No'
-
-        #CONNECT DATABASE
-        
-        cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?)',(id_user,todotitle,tododesc,tododatetime,complete))
-        con.commit()
-        rows=cur.execute('SELECT * FROM todo ORDER BY datetime ASC')
-        
+        #DATABASE QUERY       
+        cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?)',(save_id,todotitle,tododesc,tododatetime,complete))
+        con.commit()        
         redirect('/tasks')
     else:    
         return template('newtask')
 
 @app.route('/tasks')
 def index():
-    #CONNECT DATABASE
-    
-    rows=cur.execute('SELECT * FROM todo ORDER BY datetime ASC') #Novo
+    #DATABASE QUERY
+    global save_id
+    cur.execute('SELECT * FROM todo WHERE user_id= (?) ORDER BY datetime ASC',(save_id,)) 
+    rows=cur.fetchall()
+    print("All data from selected user:")
     print(rows)
+    print("Current user id: "+str(save_id))
     data = {"developer_name": "PMF student",
             "developer_organization": "PMF"}
     return template('index', data = data,rows=rows)
@@ -121,6 +127,10 @@ def index():
 
 @app.route('/')
 def title():    
+    global save_id
+    save_id=0
+    print("Initialized save_id:")
+    print(save_id)
     return template('titlePage')
 
 run(app, host='localhost', port = 1234,debug='True',reloader='True')
