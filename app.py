@@ -87,10 +87,18 @@ def signIn():
             return template('signIn')      
     else:
         return template('signIn')
-    
+
+@app.route('/complete<complete:re:[0-9]+>')
+def delete_task(complete):
+    completeitem=complete
+    comp="Yes"
+    cur.execute('UPDATE todo SET datetime_complete= (?) WHERE id = (?)',(comp,completeitem,))
+    con.commit()
+    redirect('/tasks')
+   
 @app.route('/delete<delete:re:[0-9]+>')
 def delete_task(delete):
-    deleteitem=delete    
+    deleteitem=delete
     cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
     con.commit()
     redirect('/tasks')
@@ -113,8 +121,9 @@ def new_task():
 @app.route('/tasks')
 def index():
     #DATABASE QUERY
+    complete="No"
     global save_id
-    cur.execute('SELECT * FROM todo WHERE user_id= (?) ORDER BY datetime ASC',(save_id,)) 
+    cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime ASC',(save_id,complete,)) 
     rows=cur.fetchall()
     print("All data from selected user:")
     print(rows)
