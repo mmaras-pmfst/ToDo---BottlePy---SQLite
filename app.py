@@ -8,6 +8,7 @@ dirname = os.path.dirname(sys.argv[0])
 #CONNECT DATABASE
 con=sqlite3.connect('data\\todo.db')
 cur=con.cursor()
+save_id=0
 
 app = Bottle()
 debug(True)
@@ -88,10 +89,24 @@ def signIn():
     else:
         return template('signIn')
 
+@app.route('/item<item:re:[0-9]+>')
+def viewtask(item):
+    idd=item
+    print("Ulazi u def viewtask")
+    cur.execute('SELECT * from todo WHERE id=(?)',(idd,))
+    result=cur.fetchone()
+    global save_id
+    save_id=result[1]
+    title=result[2]
+    desc=result[3]
+    datetimee=convDate=datetime.datetime.strptime(result[4],"%Y-%m-%d %H:%M:%S.%f").strftime("%A %d %B %Y - %I:%M %p")
+    return template('viewtask',title=title,desc=desc,datetimee=datetimee)
+
 @app.route('/complete<complete:re:[0-9]+>')
 def delete_task(complete):
     completeitem=complete
     comp="Yes"
+    #DATABASE QUERY
     cur.execute('UPDATE todo SET datetime_complete= (?) WHERE id = (?)',(comp,completeitem,))
     con.commit()
     redirect('/tasks')
@@ -99,6 +114,7 @@ def delete_task(complete):
 @app.route('/delete<delete:re:[0-9]+>')
 def delete_task(delete):
     deleteitem=delete
+    #DATABASE QUERY
     cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
     con.commit()
     redirect('/tasks')
