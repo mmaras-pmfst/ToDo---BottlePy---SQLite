@@ -121,11 +121,14 @@ def delete_task(delete):
 
 @app.route('/new',method=['GET','POST'])  
 def new_task():
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/new' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/new' IT WILL REDIRECT US TO '/'
     if request.POST.get('save','').strip():
         todotitle=request.POST.get('task')
         tododesc=request.POST.get('desc')
         tododatetime=datetime.datetime.now()
-        global save_id
+        #global save_id
         complete='No'
         #DATABASE QUERY       
         cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?)',(save_id,todotitle,tododesc,tododatetime,complete))
@@ -136,9 +139,11 @@ def new_task():
 
 @app.route('/tasks')
 def index():
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
     #DATABASE QUERY
     complete="No"
-    global save_id
     cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime ASC',(save_id,complete,)) 
     rows=cur.fetchall()
     print("All data from selected user:")
