@@ -28,7 +28,7 @@ button {
 /* Index */
 
 /* Add a task section */
-.addTask {
+.navigation {
   width: 100%;
   max-height: 11vh;
   position: fixed;
@@ -41,7 +41,7 @@ button {
   box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
 }
 
-.addTask button {
+.navigation button {
   width: 40px;
   height: 40px;
   bottom: 15px;
@@ -61,15 +61,15 @@ button {
   appearance: none;
 }
 
-.addTask button:hover {
+.navigation button:hover {
   transform: scale(1.1);
 }
 
-.addTask button:active {
+.navigation button:active {
   transform: scale(-1.1);
 }
 
-.addTask button svg {
+.navigation button svg {
   width: 16px;
   height: 16px;
   position: absolute;
@@ -277,13 +277,18 @@ li:last-of-type {
   text-align: right;
 }
 
-/* .saveDiv svg {
+.saveDiv svg {
   fill: #fff;
 }
 
-.saveBtn svg:hover {
-  fill: darkgreen;
-} */
+.saveBtn {
+  background: transparent;
+  outline: none;
+  border: none;
+
+  width: 40px;
+  height: 40px;
+}
 
 input[type="submit"] {
   width: 40px;
@@ -293,6 +298,7 @@ input[type="submit"] {
   background: #020811;
   color: #fff;
   transition: 0.3s all ease-in-out;
+  left: 0;
 
   border: 1px solid white;
 }
@@ -578,4 +584,56 @@ input[type="password"] {
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
+}
+
+/* Completed Tasks */
+.tasks {
+  width: 100%;
+  float: left;
+  padding: 15px;
+}
+
+.completedUl {
+  width: 100%;
+  float: left;
+}
+
+.completedUl li {
+  text-decoration: none;
+  list-style: none;
+  width: 100%;
+  min-height: 50px;
+  float: left;
+  font-size: 16px;
+  font-weight: 500;
+  color: #696969;
+  line-height: 22px;
+  background: #dade42;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0px, 1px, 2px rgba(44, 62, 80, 0.1);
+  margin-bottom: 10px;
+  padding: 14px 100px 14px 14px;
+}
+
+li:last-of-type {
+  margin: 0;
+}
+
+/* Remove, complete and edit (buttons)*/
+.completedUl li .buttons {
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.buttons .completed {
+  fill: darkgreen;
+  transition: 0.1s all ease;
+}
+
+.buttons .completed:hover {
+  transform: scale(1.05);
 }

@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <div class="header">
+  <div class="headerTask">
     <button class="back" onClick="parent.location='/'">
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         x="0px" y="0px" viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
@@ -45,9 +45,11 @@
         <textarea name="desc" class="desc" cols="" rows="" placeholder="Description.."></textarea>
       </div>
 
-      <button onClick="parent.location='/tasks'" class="saveBtn">
-        <input type="submit" value="Save" name="save" /><br />
-      </button>
+      <div class="saveDiv">
+        <button onClick="parent.location='/tasks'" class="saveBtn">
+          <input type="submit" value="Save" name="save" /><br />
+        </button>
+      </div>
     </form>
   </div>
 </body>

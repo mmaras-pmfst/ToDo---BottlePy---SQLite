@@ -69,6 +69,10 @@ def signUp():
 def lostPassword():    
     return template('lostPassword')
 
+@app.route('/completedTasks')
+def completedTasks():
+    return template('completedTasks')
+
 @app.route('/signIn',method=['GET','POST'])
 def signIn():
     if request.POST.get('login','').strip():
@@ -142,4 +146,4 @@ def title():
     print(save_id)
     return template('titlePage')
 
-run(app, host='localhost', port = 1234,debug='True',reloader='True')
+run(app, host='localhost', port = 4040, debug='True', reloader='True')
