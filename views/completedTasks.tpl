@@ -11,6 +11,10 @@
 </head>
 
 <body>
+  <div>
+    <h1>Completed Tasks</h1>    
+    
+  </div> 
   <div class="tasks">
     <ul class="completedUl">
       <li>
@@ -80,8 +84,10 @@
   </div>
 
   <div class="navigation">
+	<a href="logOut">
     <button class="profile">
-      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 
+	 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         x="0px" y="0px" viewBox="0 0 482.9 482.9" style="enable-background:new 0 0 482.9 482.9;" xml:space="preserve">
         <g>
           <g>
@@ -102,9 +108,12 @@
           </g>
         </g>
       </svg>
+	 
+      
     </button>
-
-    <button class="todoList">
+	</a>
+	<a href="/tasks">
+		<button class="todoList">
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
       y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
         <g>
@@ -127,6 +136,8 @@
         </g>
       </svg>
     </button>
+	</a>
+    
   </div>
 
   <script src="/static/custom.js"></script>

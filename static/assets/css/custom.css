@@ -25,6 +25,12 @@ button {
   cursor: pointer;
 }
 
+/* CompleteTask page */
+h1 {
+  text-align: center;
+  color: #dade42;
+}
+
 /* Index */
 
 /* Add a task section */

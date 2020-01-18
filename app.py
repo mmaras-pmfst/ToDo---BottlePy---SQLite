@@ -8,6 +8,7 @@ dirname = os.path.dirname(sys.argv[0])
 #CONNECT DATABASE
 con=sqlite3.connect('data\\todo.db')
 cur=con.cursor()
+save_id=0
 
 app = Bottle()
 debug(True)
@@ -69,6 +70,10 @@ def signUp():
 def lostPassword():    
     return template('lostPassword')
 
+@app.route('/logOut')
+def logOut():
+    redirect('/')
+
 @app.route('/completedTasks')
 def completedTasks():
     return template('completedTasks')
@@ -92,10 +97,24 @@ def signIn():
     else:
         return template('signIn')
 
+@app.route('/item<item:re:[0-9]+>')
+def viewtask(item):
+    idd=item
+    print("Ulazi u def viewtask")
+    cur.execute('SELECT * from todo WHERE id=(?)',(idd,))
+    result=cur.fetchone()
+    global save_id
+    save_id=result[1]
+    title=result[2]
+    desc=result[3]
+    datetimee=convDate=datetime.datetime.strptime(result[4],"%Y-%m-%d %H:%M:%S.%f").strftime("%A %d %B %Y - %I:%M %p")
+    return template('viewtask',title=title,desc=desc,datetimee=datetimee)
+
 @app.route('/complete<complete:re:[0-9]+>')
 def delete_task(complete):
     completeitem=complete
     comp="Yes"
+    #DATABASE QUERY
     cur.execute('UPDATE todo SET datetime_complete= (?) WHERE id = (?)',(comp,completeitem,))
     con.commit()
     redirect('/tasks')
@@ -103,17 +122,20 @@ def delete_task(complete):
 @app.route('/delete<delete:re:[0-9]+>')
 def delete_task(delete):
     deleteitem=delete
+    #DATABASE QUERY
     cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
     con.commit()
     redirect('/tasks')
 
 @app.route('/new',method=['GET','POST'])  
 def new_task():
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/new' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/new' IT WILL REDIRECT US TO '/'
     if request.POST.get('save','').strip():
         todotitle=request.POST.get('task')
         tododesc=request.POST.get('desc')
         tododatetime=datetime.datetime.now()
-        global save_id
         complete='No'
         #DATABASE QUERY       
         cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?)',(save_id,todotitle,tododesc,tododatetime,complete))
@@ -124,9 +146,11 @@ def new_task():
 
 @app.route('/tasks')
 def index():
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
     #DATABASE QUERY
     complete="No"
-    global save_id
     cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime ASC',(save_id,complete,)) 
     rows=cur.fetchall()
     print("All data from selected user:")
@@ -146,4 +170,4 @@ def title():
     print(save_id)
     return template('titlePage')
 
-run(app, host='localhost', port = 4040, debug='True', reloader='True')
+run(app, host='localhost', port = 2345, debug='True', reloader='True')
