@@ -16,9 +16,11 @@
     
   </div> 
   <div class="tasks">
+    
     <ul class="completedUl">
+      %for row in rows:
       <li>
-        Macka
+        <a href="item{{row[0]}}">{{row[2]}}</a>
         <div class="completedTask">
           <div class="buttons">
             <button class="completed">
@@ -79,6 +81,7 @@
           </div>
         </div>
       </li>
+      %end
     </ul>
 
   </div>

@@ -76,7 +76,18 @@ def logOut():
 
 @app.route('/completedTasks')
 def completedTasks():
-    return template('completedTasks')
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
+    #DATABASE QUERY
+    complete="Yes"
+    cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime ASC',(save_id,complete,)) 
+    rows=cur.fetchall()
+    print("All data from selected user:")
+    print(rows)
+    print("Current user id: "+str(save_id))
+    
+    return template('completedTasks',rows=rows)
 
 @app.route('/signIn',method=['GET','POST'])
 def signIn():
