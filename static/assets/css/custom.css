@@ -25,6 +25,12 @@ button {
   cursor: pointer;
 }
 
+/* CompleteTask page */
+h1 {
+  text-align: center;
+  color: #dade42;
+}
+
 /* Index */
 
 /* Add a task section */
@@ -620,6 +626,7 @@ li:last-of-type {
   margin: 0;
 }
 
+/* Remove, complete and edit (buttons)*/
 .completedUl li .buttons {
   width: 150px;
   height: 50px;
@@ -635,54 +642,4 @@ li:last-of-type {
 
 .buttons .completed:hover {
   transform: scale(1.05);
-}
-
-.navigationComplete {
-  width: 100%;
-  max-height: 11vh;
-  position: fixed;
-  padding: 15px;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-  background: #dade42;
-  box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
-}
-
-.navigationComplete button {
-  width: 40px;
-  height: 40px;
-  bottom: 15px;
-  flex: 1;
-  border-radius: 25px;
-  background: #020811;
-  transition: 0.3s all ease-in-out;
-
-  border: 0px;
-  box-shadow: none;
-  outline: none;
-  flex: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-}
-
-.navigationComplete button:hover {
-  transform: scale(1.1);
-}
-
-.navigationComplete button:active {
-  transform: scale(-1.1);
-}
-
-.navigationComplete button svg {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  margin: -8px 0 0 -8px;
-  fill: #fff;
 }

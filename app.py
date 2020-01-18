@@ -111,7 +111,7 @@ def viewtask(item):
     return template('viewtask',title=title,desc=desc,datetimee=datetimee)
 
 @app.route('/complete<complete:re:[0-9]+>')
-def complete_task(complete): #zamijenio ime
+def delete_task(complete):
     completeitem=complete
     comp="Yes"
     #DATABASE QUERY
@@ -137,7 +137,6 @@ def new_task():
         tododesc=request.POST.get('desc')
         tododatetime=datetime.datetime.now()
         complete='No'
-        #global save_id
         #DATABASE QUERY       
         cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?)',(save_id,todotitle,tododesc,tododatetime,complete))
         con.commit()        
@@ -171,4 +170,4 @@ def title():
     print(save_id)
     return template('titlePage')
 
-run(app, host='localhost', port = 3031, debug='True', reloader='True')
+run(app, host='localhost', port = 1222, debug='True', reloader='True')
