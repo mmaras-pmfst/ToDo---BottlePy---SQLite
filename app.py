@@ -170,4 +170,4 @@ def title():
     print(save_id)
     return template('titlePage')
 
-run(app, host='localhost', port = 2345, debug='True', reloader='True')
+run(app, host='localhost', port = 3031, debug='True', reloader='True')
