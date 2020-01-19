@@ -135,8 +135,17 @@ def delete_task(delete):
     deleteitem=delete
     #DATABASE QUERY
     cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
-    con.commit()
+    con.commit()    
     redirect('/tasks')
+    
+@app.route('/deletee<deletee:re:[0-9]+>')
+def delete_task(deletee):
+    deleteitem=deletee
+    #DATABASE QUERY
+    cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
+    con.commit()    
+    redirect('/completedTasks')
+
 
 @app.route('/new',method=['GET','POST'])  
 def new_task():
