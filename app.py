@@ -160,15 +160,19 @@ def index():
     global save_id
     if save_id==0:
         redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
-    #DATABASE QUERY
+    #DATABASE QUERY FOR todo TABLE
     complete="No"
     cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime ASC',(save_id,complete,)) 
     rows=cur.fetchall()
     print("All data from selected user:")
     print(rows)
     print("Current user id: "+str(save_id))
-    data = {"developer_name": "PMF student",
-            "developer_organization": "PMF"}
+    #DATABASE QUERY FOR user TABLE
+    cur.execute('SELECT * FROM user WHERE id=(?)',(save_id,))
+    data=cur.fetchone()[1]
+    print("Current username is:")
+    print(data)
+    
     return template('index', data = data,rows=rows)
 
 
