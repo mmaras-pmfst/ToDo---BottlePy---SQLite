@@ -38,11 +38,13 @@
   </div>
   <div>
     <form action="/new" method="POST">
-      <div class="titleDiv">
-        <input class="title" type="text" name="task" placeholder="Title.." />
-      </div>
-      <div class="descDiv">
-        <textarea name="desc" class="desc" cols="" rows="" placeholder="Description.."></textarea>
+      <div class="title_desc">
+        <div class="titleDiv">
+          <input class="title" type="text" name="task" placeholder="Title.." />
+        </div>
+        <div class="descDiv">
+          <textarea name="desc" class="desc" cols="" rows="10" placeholder="Description.."></textarea>
+        </div>
       </div>
 
       <div class="saveDiv">

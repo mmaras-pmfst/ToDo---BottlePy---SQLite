@@ -194,4 +194,4 @@ def title():
     print(save_id)
     return template('titlePage')
 
-run(app, host='localhost', port = 1222, debug='True', reloader='True')
+run(app, host='localhost', port = 1223, debug='True', reloader='True')
