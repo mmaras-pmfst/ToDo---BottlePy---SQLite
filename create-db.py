@@ -10,9 +10,9 @@ with con:
     cur.execute("DROP TABLE IF EXISTS todo")
     
     #CREATE TABLE todo
-    cur.execute("CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id TEXT, title TEXT, desc TEXT, datetime TEXT, datetime_complete TEXT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id TEXT, title TEXT, desc TEXT, datetime TEXT, datetime_complete TEXT,timetable TEXT)")
     
     #CREATE TABLE users
-    cur.execute("CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT)")
 con.close()
 print ("Database/tables created.")

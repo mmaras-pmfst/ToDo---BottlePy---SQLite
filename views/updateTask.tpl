@@ -66,6 +66,14 @@
 "{{ desc }}"</textarea
             >
           </div>
+          <div>
+            <input
+              name="timetablee"
+              type="datetime-local"
+              value="{{ timetable }}"
+            />
+            <label for="">Select date and time for this task</label>
+          </div>
         </div>
 
         <div class="saveDiv">

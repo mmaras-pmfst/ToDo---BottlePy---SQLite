@@ -118,8 +118,10 @@ def viewtask(item):
     save_id=result[1]
     title=result[2]
     desc=result[3]
+    x=result[6]
+    timetable=x.replace("T"," ")
     datetimee=convDate=datetime.datetime.strptime(result[4],"%Y-%m-%d %H:%M:%S.%f").strftime("%A %d %B %Y - %I:%M %p")
-    return template('viewtask',title=title,desc=desc,datetimee=datetimee)
+    return template('viewtask',title=title,desc=desc,datetimee=datetimee,timetable=timetable)
 
 @app.route('/complete<complete:re:[0-9]+>')
 def complete_task(complete):
@@ -165,10 +167,11 @@ def change(change):
         print("button change is pressed")
         todotitle=request.POST.get('taskk')
         tododesc=request.POST.get('descc')
+        todotimetable=request.POST.get('timetablee')
         tododatetime=datetime.datetime.now()
         complete='No'
         #DATABASE QUERY       
-        cur.execute('UPDATE todo SET title=(?),desc=(?),datetime=(?) WHERE id=(?)',(todotitle,tododesc,tododatetime,changeitem,))
+        cur.execute('UPDATE todo SET title=(?),desc=(?),datetime=(?),timetable=(?) WHERE id=(?)',(todotitle,tododesc,tododatetime,todotimetable,changeitem,))
         con.commit()        
         redirect('/tasks')      
     else:        
@@ -179,7 +182,8 @@ def change(change):
         save_id=result[1]
         title=result[2]
         desc=result[3]
-        return template('updateTask',title=title,desc=desc,changeitem=changeitem)
+        timetable=result[6]
+        return template('updateTask',title=title,desc=desc,changeitem=changeitem,timetable=timetable)
     
 
 @app.route('/new',method=['GET','POST'])  
@@ -190,10 +194,11 @@ def new_task():
     if request.POST.get('save','').strip():
         todotitle=request.POST.get('task')
         tododesc=request.POST.get('desc')
+        timetable=request.POST.get('timetable')
         tododatetime=datetime.datetime.now()
         complete='No'
         #DATABASE QUERY       
-        cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?)',(save_id,todotitle,tododesc,tododatetime,complete))
+        cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?,?)',(save_id,todotitle,tododesc,tododatetime,complete,timetable))
         con.commit()        
         redirect('/tasks')
     else:    
