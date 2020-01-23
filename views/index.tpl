@@ -189,7 +189,7 @@
                 </svg>
               </button>
             </a>
-            <a href="#">
+            <a href="change{{ row[0] }}">
               <button class="edit">
                 <svg
                   width="20px"

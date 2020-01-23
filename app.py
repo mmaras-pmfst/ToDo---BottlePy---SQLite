@@ -155,6 +155,33 @@ def return_task(reeturn):
     con.commit()
     redirect('/completedTasks')
 
+@app.route('/change<change:re:[0-9]+>',method=['GET','POST'])
+def change(change):
+    changeitem=change
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/change' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/new' IT WILL REDIRECT US TO '/'
+    if request.POST.get('change','').strip():
+        print("button change is pressed")
+        todotitle=request.POST.get('taskk')
+        tododesc=request.POST.get('descc')
+        tododatetime=datetime.datetime.now()
+        complete='No'
+        #DATABASE QUERY       
+        cur.execute('UPDATE todo SET title=(?),desc=(?),datetime=(?) WHERE id=(?)',(todotitle,tododesc,tododatetime,changeitem,))
+        con.commit()        
+        redirect('/tasks')      
+    else:        
+        #DATABASE QUERY
+        rows=cur.execute('SELECT * FROM todo WHERE id=(?)',(changeitem,))    
+        result=cur.fetchone()
+        
+        save_id=result[1]
+        title=result[2]
+        desc=result[3]
+        return template('updateTask',title=title,desc=desc,changeitem=changeitem)
+    
+
 @app.route('/new',method=['GET','POST'])  
 def new_task():
     global save_id
