@@ -159,7 +159,7 @@ li:last-of-type {
 }
 
 /* Dividing buttons */
-.buttons button:last-of-type:before {
+.buttons .edit::before {
   content: "";
   width: 1px;
   height: 30px;
@@ -169,7 +169,7 @@ li:last-of-type {
   background: #101d21;
 }
 
-.buttons button:nth-of-type(2):before {
+.buttons .remove::before {
   content: "";
   width: 1px;
   height: 30px;
@@ -410,6 +410,7 @@ input[type="submit"]:hover {
   color: #696969;
   text-transform: uppercase;
   padding-top: 14px;
+  transition: all 0.3s ease-in-out;
 }
 
 .donateBtn:focus {
@@ -523,6 +524,7 @@ input[type="password"] {
   border: none;
   outline: none;
   height: 40px;
+  width: 90%;
   background: #020811;
   font-size: 18px;
   color: #696969;
@@ -588,6 +590,7 @@ input[type="password"] {
   border: none;
   outline: none;
   height: 40px;
+  width: 90%;
   background: #020811;
   font-size: 18px;
   color: #696969;
@@ -648,22 +651,49 @@ li:last-of-type {
   margin: 0;
 }
 
-/* Remove, complete and edit (buttons)*/
-.completedUl li .buttons {
-  width: 150px;
+.completedUl li .buttonsCompleted {
+  width: 100px;
   height: 50px;
   position: absolute;
   top: 0;
   right: 0;
 }
 
-.buttons .completed {
-  fill: darkgreen;
-  transition: 0.1s all ease;
+.buttonsCompleted .removeCompleted::before {
+  content: "";
+  width: 1px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  background: #101d21;
 }
 
-.buttons .completed:hover {
-  transform: scale(1.05);
+.buttonsCompleted button {
+  width: 50px;
+  height: 50px;
+  float: left;
+  background: none;
+  border: 0px;
+  box-shadow: none;
+  outline: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.buttonsCompleted .removeCompleted:hover {
+  fill: red;
+}
+
+.buttonsCompleted .complete:hover {
+  fill: darkgreen;
 }
 
 /* View Task */

@@ -122,7 +122,7 @@ def viewtask(item):
     return template('viewtask',title=title,desc=desc,datetimee=datetimee)
 
 @app.route('/complete<complete:re:[0-9]+>')
-def delete_task(complete):
+def complete_task(complete):
     completeitem=complete
     comp="Yes"
     #DATABASE QUERY
@@ -146,6 +146,14 @@ def delete_task(deletee):
     con.commit()    
     redirect('/completedTasks')
 
+@app.route('/reeturn<reeturn:re:[0-9]+>')
+def return_task(reeturn):
+    returnitem=reeturn
+    complete="No"
+    #DATABASE QUERY
+    cur.execute('UPDATE todo SET datetime_complete= (?) WHERE id = (?)',(complete,reeturn,))
+    con.commit()
+    redirect('/completedTasks')
 
 @app.route('/new',method=['GET','POST'])  
 def new_task():
