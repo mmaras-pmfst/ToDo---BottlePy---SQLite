@@ -2,7 +2,7 @@ from bottle import Bottle, redirect, run, \
      template, debug, get, route, static_file, request, post
 
 import os, sys, sqlite3, datetime
-
+from database_methods import signUpUser,signInUser,tasksList,newTask,editTasks,editTaskss,undoComplete,deleteTask,completeTasks,viewTasks,complitedList
 dirname = os.path.dirname(sys.argv[0])
 
 #CONNECT DATABASE
@@ -42,27 +42,13 @@ def signUp():
         email=request.POST.get('email')
         password1=request.POST.get('password1')
         password2=request.POST.get('password2')
-        cur.execute('SELECT username FROM user WHERE username= ?',(username,))
-        test=cur.fetchone()
-        print(test)
-        if test==None:
-            if password1==password2:
-                #DATABASE QUERY
-                cur.execute('INSERT INTO user VALUES (null,?,?,?)',(username,password1,email))
-                con.commit()
-                cur.execute('SELECT * FROM user WHERE username = (?)',(username,))
-                id_user=cur.fetchone()[0]
-                print("User id is:")
-                print(id_user)
-                global save_id
-                save_id=id_user
-                redirect('/tasks')
-            else:
-                print("Wrong password")
-                return template('signUp')
-        else:
-            print("Username already exists!")
+        test=signUpUser(username,password1,password2,email)
+        if test[0]==False:
             return template('signUp')
+        else:
+            global save_id
+            save_id=test[1]
+            redirect('/tasks')
     else:
         return template('signUp')
 
@@ -77,15 +63,10 @@ def logOut():
 @app.route('/completedTasks')
 def completedTasks():
     global save_id
+    complete="Yes"
     if save_id==0:
         redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
-    #DATABASE QUERY
-    complete="Yes"
-    cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime ASC',(save_id,complete,)) 
-    rows=cur.fetchall()
-    print("All data from selected user:")
-    print(rows)
-    print("Current user id: "+str(save_id))
+    rows=complitedList(save_id,complete)
     
     return template('completedTasks',rows=rows)
 
@@ -94,26 +75,21 @@ def signIn():
     if request.POST.get('login','').strip():
         username=request.POST.get('username')
         password=request.POST.get('password')
-        id1=cur.execute('SELECT * FROM user WHERE username = (?) AND password = (?)',(username,password,))
-        id1=cur.fetchone()
-        print("Does user exists:")
-        print(id1)        
-        if id1!=None:
+        testing=signInUser(username,password)
+        if testing[0]==True:
             global save_id
-            save_id=id1[0]
-            print("Sign in id: "+str(save_id))
+            save_id=testing[1]
             redirect('/tasks')
         else:
-            return template('signIn')      
+            return template('signIn')
+              
     else:
         return template('signIn')
 
 @app.route('/item<item:re:[0-9]+>')
 def viewtask(item):
     idd=item
-    print("Ulazi u def viewtask")
-    cur.execute('SELECT * from todo WHERE id=(?)',(idd,))
-    result=cur.fetchone()
+    result=viewTasks(idd)
     global save_id
     save_id=result[1]
     title=result[2]
@@ -127,34 +103,26 @@ def viewtask(item):
 def complete_task(complete):
     completeitem=complete
     comp="Yes"
-    #DATABASE QUERY
-    cur.execute('UPDATE todo SET datetime_complete= (?) WHERE id = (?)',(comp,completeitem,))
-    con.commit()
+    completeTasks(comp,completeitem)
     redirect('/tasks')
    
 @app.route('/delete<delete:re:[0-9]+>')
 def delete_task(delete):
     deleteitem=delete
-    #DATABASE QUERY
-    cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
-    con.commit()    
+    deleteTask(deleteitem)   
     redirect('/tasks')
     
 @app.route('/deletee<deletee:re:[0-9]+>')
 def delete_task(deletee):
     deleteitem=deletee
-    #DATABASE QUERY
-    cur.execute('DELETE FROM todo WHERE id = (?)',(deleteitem,))
-    con.commit()    
+    deleteTask(deleteitem)    
     redirect('/completedTasks')
 
 @app.route('/reeturn<reeturn:re:[0-9]+>')
 def return_task(reeturn):
     returnitem=reeturn
     complete="No"
-    #DATABASE QUERY
-    cur.execute('UPDATE todo SET datetime_complete= (?) WHERE id = (?)',(complete,reeturn,))
-    con.commit()
+    undoComplete(returnitem,complete)
     redirect('/completedTasks')
 
 @app.route('/change<change:re:[0-9]+>',method=['GET','POST'])
@@ -170,15 +138,10 @@ def change(change):
         todotimetable=request.POST.get('timetablee')
         tododatetime=datetime.datetime.now()
         complete='No'
-        #DATABASE QUERY       
-        cur.execute('UPDATE todo SET title=(?),desc=(?),datetime=(?),timetable=(?) WHERE id=(?)',(todotitle,tododesc,tododatetime,todotimetable,changeitem,))
-        con.commit()        
+        editTasks(todotitle,tododesc,tododatetime,todotimetable,changeitem)        
         redirect('/tasks')      
     else:        
-        #DATABASE QUERY
-        rows=cur.execute('SELECT * FROM todo WHERE id=(?)',(changeitem,))    
-        result=cur.fetchone()
-        
+        result=editTaskss(changeitem)        
         save_id=result[1]
         title=result[2]
         desc=result[3]
@@ -197,9 +160,8 @@ def new_task():
         timetable=request.POST.get('timetable')
         tododatetime=datetime.datetime.now()
         complete='No'
-        #DATABASE QUERY       
-        cur.execute('INSERT INTO todo VALUES (null,?,?,?,?,?,?)',(save_id,todotitle,tododesc,tododatetime,complete,timetable))
-        con.commit()        
+        newTask(save_id,todotitle,tododesc,tododatetime,complete,timetable)
+                
         redirect('/tasks')
     else:    
         return template('newtask')
@@ -209,18 +171,9 @@ def index():
     global save_id
     if save_id==0:
         redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
-    #DATABASE QUERY FOR todo TABLE
-    complete="No"
-    cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime ASC',(save_id,complete,)) 
-    rows=cur.fetchall()
-    print("All data from selected user:")
-    print(rows)
-    print("Current user id: "+str(save_id))
-    #DATABASE QUERY FOR user TABLE
-    cur.execute('SELECT * FROM user WHERE id=(?)',(save_id,))
-    data=cur.fetchone()[1]
-    print("Current username is:")
-    print(data)
+    testing=tasksList(save_id)
+    data=testing[0]
+    rows=testing[1]
     
     return template('index', data = data,rows=rows)
 
