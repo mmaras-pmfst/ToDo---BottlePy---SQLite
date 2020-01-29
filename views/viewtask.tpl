@@ -60,7 +60,7 @@
         <p><span class="custom">Description:</span> {{ desc }}</p>
       </div>
       <div class="taskDesc">
-        <p><span class="custom">Dead line:</span> {{ timetable }}</p>
+        <p><span class="custom">Deadline:</span> {{ timetable }}</p>
       </div>
     </div>
   </body>

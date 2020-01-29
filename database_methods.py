@@ -10,6 +10,7 @@ from todo import Todo
 def signUpUser(username,password1,password2,email):
     con=sqlite3.connect('data\\todo.db')
     testing=False
+    idd=0
     try:
         cur=con.cursor()
         cur.execute('SELECT username FROM user WHERE username= ?',(username,))
@@ -45,10 +46,14 @@ def signUpUser(username,password1,password2,email):
 def signInUser(username,password):
     con=sqlite3.connect('data\\todo.db')
     testing=False
+    idd=0
     try:
         cur=con.cursor()
         id1=cur.execute('SELECT * FROM user WHERE username = (?) AND password = (?)',(username,password,))
-        id1=cur.fetchone()        
+        
+        id1=cur.fetchone()
+        print("Ovo je id1:")
+        print(id1)
         if id1!=None:
             idd=id1[0]
             print("Correct username and password")
@@ -63,6 +68,28 @@ def signInUser(username,password):
     return (testing,idd)
 
 def tasksList(save_id):
+    con=sqlite3.connect('data\\todo.db')    
+    try:
+        cur=con.cursor()
+        complete="No"
+        cur.execute('SELECT * FROM todo WHERE user_id= (?) AND datetime_complete= (?) ORDER BY datetime DESC',(save_id,complete,)) 
+        rows=cur.fetchall()
+        print("All data from selected user:")
+        print(rows)
+        print("Current user id: "+str(save_id))
+        #DATABASE QUERY FOR user TABLE
+        cur.execute('SELECT * FROM user WHERE id=(?)',(save_id,))
+        data=cur.fetchone()[1]
+        print("Current username is:")
+        print(data)
+        
+    except Exception as e:
+        print("Error at tasksList: ",e)
+        con.rollback
+    con.close()
+    return (data,rows)
+
+def tasksList2(save_id):
     con=sqlite3.connect('data\\todo.db')    
     try:
         cur=con.cursor()
@@ -83,7 +110,28 @@ def tasksList(save_id):
         con.rollback
     con.close()
     return (data,rows)
+
+def findTasks(keyword,save_id):
+    con=sqlite3.connect('data\\todo.db')    
+    try:
+        cur=con.cursor()
+        #DATABASE QUERY
+        cur.execute('SELECT * FROM todo WHERE user_id= ? AND title LIKE ?',(save_id,"%"+keyword+"%",))
+        rows=cur.fetchall()
+        print("Search resault:")
+        print(rows)
+        cur.execute('SELECT * FROM user WHERE id=(?)',(save_id,))
+        data=cur.fetchone()[1]
+        print("Current username is:")
+        print(data)
+        
+    except Exception as e:
+        print("Error at findTasks: ",e)
+        con.rollback
+    con.close()
+    return (data,rows)
     
+   
 def newTask(save_id,todotitle,tododesc,tododatetime,complete,timetable):
     con=sqlite3.connect('data\\todo.db')    
     try:
@@ -115,7 +163,7 @@ def editTaskss(changeitem):
     try:
         cur=con.cursor()
         #DATABASE QUERY
-        rows=cur.execute('SELECT * FROM todo WHERE id=(?)',(changeitem,))    
+        cur.execute('SELECT * FROM todo WHERE id=(?)',(changeitem,))    
         result=cur.fetchone()
         
     except Exception as e:
@@ -176,7 +224,7 @@ def viewTasks(idd):
     con.close()
     return result
 
-def complitedList(save_id,complete):
+def completedList(save_id,complete):
     con=sqlite3.connect('data\\todo.db')    
     try:
         cur=con.cursor()
@@ -189,7 +237,7 @@ def complitedList(save_id,complete):
            
     
     except Exception as e:
-        print("Error at complitedList: ",e)
+        print("Error at completedList: ",e)
         con.rollback
     con.close()
     return rows

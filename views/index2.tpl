@@ -49,8 +49,8 @@
           <div class="dropdown">
             <button class="dropBtn">Sort By</button>
             <div class="dropdownContent">
-              <li name="newest" type="submit"><a href="tasks">Newest</a></li>
-              <li name="oldest" type="submit"><a href="taskss">Oldest</a></li>
+              <li name="newest" type="submit"><a href="taskss">Newest</a></li>
+              <li name="oldest" type="submit"><a href="tasks">Oldest</a></li>
             </div>
           </div>
         </div>

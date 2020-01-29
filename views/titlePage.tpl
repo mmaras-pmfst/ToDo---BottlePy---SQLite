@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
   <div class="headerTitle">
     <div class="title">
       To-Do
@@ -41,7 +42,5 @@
       </div>
     </div>
 
-
 </body>
-
 </html>

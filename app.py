@@ -2,7 +2,7 @@ from bottle import Bottle, redirect, run, \
      template, debug, get, route, static_file, request, post
 
 import os, sys, sqlite3, datetime
-from database_methods import signUpUser,signInUser,tasksList,newTask,editTasks,editTaskss,undoComplete,deleteTask,completeTasks,viewTasks,complitedList
+from database_methods import signUpUser,findTasks,signInUser,tasksList2,tasksList,newTask,editTasks,editTaskss,undoComplete,deleteTask,completeTasks,viewTasks,completedList
 dirname = os.path.dirname(sys.argv[0])
 
 #CONNECT DATABASE
@@ -66,7 +66,7 @@ def completedTasks():
     complete="Yes"
     if save_id==0:
         redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
-    rows=complitedList(save_id,complete)
+    rows=completedList(save_id,complete)
     
     return template('completedTasks',rows=rows)
 
@@ -166,18 +166,39 @@ def new_task():
     else:    
         return template('newtask')
 
-@app.route('/tasks')
+@app.route('/tasks',method=['GET','POST'])
 def index():
     global save_id
     if save_id==0:
         redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
     testing=tasksList(save_id)
     data=testing[0]
-    rows=testing[1]
+    rows=testing[1]    
+    return template('index', data = data,rows=rows,form_action="/search")
+
+@app.route('/taskss',method=['GET','POST'])
+def index():
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
     
-    return template('index', data = data,rows=rows)
+    testing=tasksList2(save_id)
+    data=testing[0]
+    rows=testing[1]    
+    return template('index', data = data,rows=rows,form_action="/search")
 
-
+@app.route('/search',method=['POST'])
+def search():
+    global save_id
+    if save_id==0:
+        redirect('/') #IF WE WERE ON ROUTE '/tasks' AND WE STOP THE SERVER AND START IT AGAIN, THEN REFRESH '/tasks' IT WILL REDIRECT US TO '/'
+    keyword=request.forms.get('word')
+    result=findTasks(keyword,save_id)
+    data=result[0]
+    rows=result[1]
+    return template('index', data = data,rows=rows,form_action="/search")
+    
+    
 
 @app.route('/')
 def title():    
@@ -187,4 +208,4 @@ def title():
     print(save_id)
     return template('titlePage')
 
-run(app, host='localhost', port = 1223, debug='True', reloader='True')
+run(app, host='localhost', port = 1224, debug='True', reloader='True')

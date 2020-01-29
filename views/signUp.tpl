@@ -35,6 +35,7 @@
         />
 
         <input type="submit" name="register" value="Register" />
+        <p><a href="signIn">Already have an account?</a></p>
       </form>
     </div>
   </body>

@@ -25,6 +25,28 @@ button {
   cursor: pointer;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #696969;
+  -webkit-animation: autofill 0s forwards;
+  animation: autofill 0s forwards;
+}
+
+@keyframes autofill {
+  100% {
+    background: inherit;
+    color: #696969;
+  }
+}
+
+@-webkit-keyframes autofill {
+  100% {
+    background: inherit;
+    color: #696969;
+  }
+}
 /* CompleteTask page */
 h1 {
   text-align: center;
@@ -33,10 +55,111 @@ h1 {
 
 /* Index */
 
+/*Search*/
+.searchDiv {
+  text-align: center;
+}
+
+.search {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.welcomeTitle {
+  flex: 1;
+}
+
+.searchInput_Btn {
+  flex: 1;
+}
+
+.sort {
+  flex: 1;
+}
+
+.dropBtn {
+  width: 100px;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  color: #696969;
+  border: 2px solid #696969;
+
+  background: inherit;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #696969;
+  opacity: 0.95;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdownContent a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownContent a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdown:hover .dropBtn {
+  background-color: #dade42;
+}
+
+.searchInput {
+  outline: none;
+  background: none;
+  border: none;
+  height: 30px;
+  color: #696969;
+  border-bottom: 1px solid #696969;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.searchBtn {
+  height: 30px;
+  width: 30px;
+  background: none;
+  border: none;
+  outline: none;
+
+  border: 1px solid #696969;
+  border-radius: 50%;
+}
+
+.searchBtn i {
+  color: #dade42;
+}
+
+.searchBtn:hover {
+  background: #696969;
+}
+
 /* Add a task section */
 .navigation {
   width: 100%;
-  max-height: 11vh;
+  max-height: 9vh;
   position: fixed;
   padding: 15px;
   bottom: 0;
@@ -318,7 +441,7 @@ li:last-of-type {
   height: 40px;
 }
 
-input[type="submit"] {
+.saveBtn input[type="submit"] {
   width: 40px;
   height: 40px;
   margin-left: 10px;
@@ -327,11 +450,12 @@ input[type="submit"] {
   color: #fff;
   transition: 0.3s all ease-in-out;
   left: 0;
+  outline: none;
 
   border: 1px solid white;
 }
 
-input[type="submit"]:hover {
+.saveBtn input[type="submit"]:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
@@ -524,17 +648,20 @@ input[type="password"] {
   border: none;
   outline: none;
   height: 40px;
-  width: 90%;
+  width: 100%;
   background: #020811;
   font-size: 18px;
   color: #696969;
   border-radius: 20px;
   cursor: pointer;
+
+  transition: 0.3s all ease-in-out;
 }
 
 .loginBox input[type="submit"]:hover {
   color: #fff;
   border: 1px solid #fff;
+  transform: scale(1.1);
 }
 
 .loginBox a:hover {
@@ -590,17 +717,20 @@ input[type="password"] {
   border: none;
   outline: none;
   height: 40px;
-  width: 90%;
+  width: 100%;
   background: #020811;
   font-size: 18px;
   color: #696969;
   border-radius: 20px;
   cursor: pointer;
+
+  transition: 0.3s all ease-in-out;
 }
 
 .registerBox input[type="submit"]:hover {
   color: #fff;
   border: 1px solid #fff;
+  transform: scale(1.1);
 }
 
 .registerBox a:hover {
